@@ -39,12 +39,11 @@
             background: #6b7280;
         }
 
-        /* --- NEW --- Force GPU rendering for sharper text */
+        /* Force GPU rendering for sharper text (Sidebar rule removed to fix mobile toggle) */
         .item-card,
         .tool-link-v2,
         .favorite-link,
-        .modal-content,
-        #sidebar {
+        .modal-content {
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -204,8 +203,8 @@
 
         /* Only apply hover animation to INACTIVE links */
         aside nav a:not(.active-link):hover {
-            transform: translateX(5px) scale(1.02) translateZ(0);
-            /* Keep translateZ on hover */
+            transform: translateX(5px) scale(1.02);
+            /* Removed translateZ from here as it's not needed */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             background-color: #1f2937;
             /* hover:bg-gray-800 */
@@ -454,8 +453,8 @@
 
                     <div class="item-card animate-item">
                         <div class="item-header">
-                            <svg class="item-icon text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg class="item-icon text-blue-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
@@ -483,8 +482,8 @@
 
                     <div class="item-card animate-item">
                         <div class="item-header">
-                            <svg class="item-icon text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg class="item-icon text-orange-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                             </svg>
@@ -509,8 +508,8 @@
 
                     <div class="item-card animate-item">
                         <div class="item-header">
-                            <svg class="item-icon text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg class="item-icon text-red-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
                             </svg>
@@ -595,10 +594,10 @@
                                 xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="64" cy="64" r="7.4" fill="#61DAFB" />
                                 <ellipse cx="64" cy="64" rx="63" ry="24" stroke="#61DAFB" stroke-width="5" />
-                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(60 64 64)" stroke="#61DAFB"
-                                    stroke-width="5" />
-                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(120 64 64)" stroke="#61DAFB"
-                                    stroke-width="5" />
+                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(60 64 64)"
+                                    stroke="#61DAFB" stroke-width="5" />
+                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(120 64 64)"
+                                    stroke="#61DAFB" stroke-width="5" />
                             </svg>
                             <h3 class="item-title">React 18 for Beginners</h3>
                             <p class="item-description">Get started with the latest version of React and build modern
@@ -617,10 +616,10 @@
                                 xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="64" cy="64" r="7.4" fill="#61DAFB" />
                                 <ellipse cx="64" cy="64" rx="63" ry="24" stroke="#61DAFB" stroke-width="5" />
-                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(60 64 64)" stroke="#61DAFB"
-                                    stroke-width="5" />
-                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(120 64 64)" stroke="#61DAFB"
-                                    stroke-width="5" />
+                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(60 64 64)"
+                                    stroke="#61DAFB" stroke-width="5" />
+                                <ellipse cx="64" cy="64" rx="63" ry="24" transform="rotate(120 64 64)"
+                                    stroke="#61DAFB" stroke-width="5" />
                             </svg>
                             <h3 class="item-title">React 18: Intermediate Topics</h3>
                             <p class="item-description">Dive deeper into React with hooks, context, and other advanced
@@ -635,8 +634,8 @@
 
                     <div class="item-card animate-item">
                         <div class="item-header">
-                            <svg class="item-icon text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg class="item-icon text-purple-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                             </svg>
@@ -706,8 +705,8 @@
                                         <div class="tool-title">Gemini</div>
                                     </div>
                                 </a>
-                                <a href="https://notebooklm.google.com/?authuser=2" class="tool-link-v2 animate-item"
-                                    target="_blank" data-search-term="NotebookLM">
+                                <a href="https://notebooklm.google.com/?authuser=2"
+                                    class="tool-link-v2 animate-item" target="_blank" data-search-term="NotebookLM">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-blue-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -719,8 +718,8 @@
                                         <div class="tool-title">NotebookLM</div>
                                     </div>
                                 </a>
-                                <a href="https://aistudio.google.com/" class="tool-link-v2 animate-item" target="_blank"
-                                    data-search-term="Google AI Studio">
+                                <a href="https://aistudio.google.com/" class="tool-link-v2 animate-item"
+                                    target="_blank" data-search-term="Google AI Studio">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-green-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -765,8 +764,9 @@
                             <div class="space-y-2">
                                 <a href="https://web.whatsapp.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="WhatsApp">
-                                    <div class="flex-shrink-0"><svg class="tool-icon text-green-400" fill="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <div class="flex-shrink-0"><svg class="tool-icon text-green-400"
+                                            fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C24 18.667 18.664 24 .107 24h.001zm4.965-5.385l.273.165c1.469.884 3.16 1.356 4.898 1.356h.001c5.45 0 9.901-4.451 9.901-9.901S15.462 2.33 9.911 2.33c-2.637 0-5.12 1.04-6.988 2.908-1.868 1.868-2.908 4.354-2.908 6.988.001 1.743.473 3.44 1.356 4.9z M9.043 7.821c.143-.367.319-.51.465-.51.149 0 .31.001.466.001.205 0 .465.1.719.585.253.484.867 2.101 1.034 2.563.167.462.278.742.373.918.095.175.048.272-.048.37c-.095.099-.418.371-.563.516-.146.146-.293.319-.418.465-.124.147-.248.293-.048.516.2.223.867 1.455 1.887 2.476 1.308 1.307 2.347 1.626 2.67 1.77.323.143.516.124.719-.047.202-.171.867-.993 1.034-1.188.167-.195.319-.166.563-.166.244 0 1.562.742 1.838.884.276.143.465.223.516.37.05.147.001.867-.248 1.625-.248.758-1.47 1.456-2.023 1.456-1.142 0-2.18-.347-3.14-.84-2.195-1.141-3.693-2.618-5.008-4.225-1.58-1.867-2.43-3.957-2.625-4.488-.195-.531.125-1.034.373-1.356z">
                                             </path>
@@ -800,8 +800,9 @@
                             <div class="space-y-2">
                                 <a href="https://docs.google.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="Google Docs">
-                                    <div class="flex-shrink-0"><svg class="tool-icon text-blue-500" fill="currentColor"
-                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <div class="flex-shrink-0"><svg class="tool-icon text-blue-500"
+                                            fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm7 6H7v2h6V8zm4 4H7v2h10v-2zm-4 4H7v2h6v-2z">
                                             </path>
@@ -810,10 +811,11 @@
                                         <div class="tool-title">Google Docs</div>
                                     </div>
                                 </a>
-                                <a href="https://docs.google.com/presentation/u/2/" class="tool-link-v2 animate-item"
-                                    target="_blank" data-search-term="Google Slides">
+                                <a href="https://docs.google.com/presentation/u/2/"
+                                    class="tool-link-v2 animate-item" target="_blank" data-search-term="Google Slides">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-yellow-400"
-                                            fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            fill="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M4 3h16a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2zm2 4v10h12V7H6z">
                                             </path>
@@ -836,7 +838,8 @@
                                     </div>
                                 </a>
                                 <a href="file:///media/fuse/drivefs-f0ec0cb6d418fcf04af63d4ab3e3a387/root/Application/youtubeLinkGenerator.html"
-                                    class="tool-link-v2 animate-item" target="_blank" data-search-term="Link Generator">
+                                    class="tool-link-v2 animate-item" target="_blank"
+                                    data-search-term="Link Generator">
                                     <div class="flex-shrink-0">
                                         <svg class="tool-icon text-green-400" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -893,8 +896,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="AI for Students">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -904,19 +907,20 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Ali Abdaal">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
                                 <span class="text-gray-200 text-lg">Ali Abdaal</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=qABysGcJ72I&list=PL_V_aPfafryf5xaXHoA5dLP1Fya4Ab5wL"
-                                target="_blank" class="favorite-link animate-item" data-search-term="Andy Tries Coding">
+                                target="_blank" class="favorite-link animate-item"
+                                data-search-term="Andy Tries Coding">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -926,8 +930,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Arif Rapiadi">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -937,8 +941,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="BigboxSWE">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -948,19 +952,20 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Brian Ruiz">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
                                 <span class="text-gray-200 text-lg">Brian Ruiz</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=Qo725hdnS1Q&list=PL_V_aPfafryeRmnWJjSmQeWWPNAmWJ01e"
-                                target="_blank" class="favorite-link animate-item" data-search-term="Carmudi Indonesia">
+                                target="_blank" class="favorite-link animate-item"
+                                data-search-term="Carmudi Indonesia">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -971,8 +976,8 @@
                                 data-search-term="Coding with AI (Copilot) Tutorial">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -982,8 +987,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Daniel Laera">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -993,8 +998,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Dan Martell">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1005,8 +1010,8 @@
                                 data-search-term="English Speaking Success">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1018,19 +1023,20 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Jacob">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
                                 <span class="text-gray-200 text-lg">Jacob</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=QiD2lZUjKOY&list=PL_V_aPfafrydAuZLjT1k4tGnWvQNBd8FE"
-                                target="_blank" class="favorite-link animate-item" data-search-term="Kristian Hansen">
+                                target="_blank" class="favorite-link animate-item"
+                                data-search-term="Kristian Hansen">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1040,8 +1046,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Liziqi">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1052,8 +1058,8 @@
                                 data-search-term="Make AI Work for You | Google">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1063,8 +1069,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Marko">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1074,8 +1080,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Oliur Online">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1085,8 +1091,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Savy Wheels">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1096,8 +1102,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Starter Story">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1107,19 +1113,20 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Takechu">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
                                 <span class="text-gray-200 text-lg">Takechu</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=rss7ydVq1Fg&list=PL_V_aPfafryd1P_HrJr1h5_Y4qhh-j2lm"
-                                target="_blank" class="favorite-link animate-item" data-search-term="Timothy Ronald">
+                                target="_blank" class="favorite-link animate-item"
+                                data-search-term="Timothy Ronald">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1129,8 +1136,8 @@
                                 target="_blank" class="favorite-link animate-item" data-search-term="Traversy Media">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
-                                        fill="white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                        viewBox="0 0 24 24" fill="white">
                                         <path d="M8 5v14l11-7z" />
                                     </svg>
                                 </div>
@@ -1151,7 +1158,8 @@
                 <button id="modal-close-btn" class="text-gray-400 hover:text-white transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12">
                         </path>
                     </svg>
                 </button>
