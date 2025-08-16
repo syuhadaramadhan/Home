@@ -218,45 +218,6 @@
             /* text-white */
         }
 
-        /* Modal Styles */
-        #course-modal {
-            transition: opacity 0.3s ease;
-        }
-
-        #course-modal .modal-content {
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            transform: scale(0.95) translateZ(0);
-            /* Keep translateZ */
-            opacity: 0;
-        }
-
-        #course-modal:not(.hidden) .modal-content {
-            transform: scale(1) translateZ(0);
-            /* Keep translateZ */
-            opacity: 1;
-        }
-
-        .modal-course-part-link {
-            display: block;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            transition: all 0.3s ease;
-            /* Smoother transition */
-            color: #d1d5db;
-            background-color: #374151;
-            text-align: center;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .modal-course-part-link:hover {
-            background-color: #4f46e5;
-            color: #f9fafb;
-            transform: translateY(-3px) translateZ(0);
-            /* Keep translateZ on hover */
-            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
-        }
-
         /* Search Section Styles */
         #search-input-container {
             position: relative;
@@ -361,6 +322,63 @@
             /* Delay before button appears */
             opacity: 0;
             /* Start as invisible */
+        }
+
+        /* --- Modal Animations --- */
+        @keyframes modal-show {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes modal-link-stagger {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Modal Styles */
+        #course-modal {
+            transition: opacity 0.3s ease;
+            /* For the background overlay */
+        }
+
+        #course-modal:not(.hidden) .modal-content {
+            animation: modal-show 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        .modal-course-part-link {
+            display: block;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            color: #d1d5db;
+            background-color: #374151;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+            opacity: 0;
+            /* Start links as invisible for animation */
+            animation: modal-link-stagger 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        .modal-course-part-link:hover {
+            background-color: #4f46e5;
+            color: #f9fafb;
+            transform: translateY(-3px) translateZ(0);
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
         }
     </style>
 </head>
@@ -1347,7 +1365,7 @@
             document.getElementById('sidebar-tools').click();
         }
 
-        // --- Modal Logic (Unchanged) ---
+        // --- Modal Logic ---
         const modal = document.getElementById('course-modal');
         const modalTitle = document.getElementById('modal-title');
         const modalBody = document.getElementById('modal-body');
@@ -1364,12 +1382,14 @@
             modalBody.innerHTML = ''; // Clear previous links
 
             const links = linksContainer.querySelectorAll('a');
-            links.forEach(link => {
+            links.forEach((link, index) => { // Added index parameter
                 const newLink = document.createElement('a');
                 newLink.href = link.href;
                 newLink.target = '_blank';
                 newLink.className = 'modal-course-part-link';
                 newLink.textContent = link.textContent;
+                // Add staggered animation delay
+                newLink.style.animationDelay = `${100 + index * 80}ms`;
                 modalBody.appendChild(newLink);
             });
 
