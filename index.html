@@ -16,6 +16,8 @@
             /* Main content background (gray-900) */
             color: #d1d5db;
             /* Light gray text for readability */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Custom dark-themed scrollbar */
@@ -37,6 +39,18 @@
             background: #6b7280;
         }
 
+        /* --- NEW --- Force GPU rendering for sharper text */
+        .item-card,
+        .tool-link-v2,
+        .favorite-link,
+        .modal-content,
+        #sidebar {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+
         /* Course Card Design for Dark Mode */
         .item-card {
             background-color: #1f2937;
@@ -52,7 +66,8 @@
         }
 
         .item-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) translateZ(0);
+            /* Keep translateZ on hover */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
             border-color: #4f46e5;
         }
@@ -113,8 +128,8 @@
         .item-card .action-btn:hover {
             background-color: #4338ca;
             /* Indigo-700 */
-            transform: translateY(-3px);
-            /* Gentle lift animation */
+            transform: translateY(-3px) translateZ(0);
+            /* Keep translateZ on hover */
             box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
             /* Soft glow effect */
         }
@@ -137,8 +152,8 @@
 
         .tool-link-v2:hover {
             background-color: #374151;
-            transform: translateY(-3px);
-            /* New lift animation */
+            transform: translateY(-3px) translateZ(0);
+            /* Keep translateZ on hover */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
             /* New glow effect */
         }
@@ -167,7 +182,8 @@
 
         .favorite-link:hover {
             background-color: #374151;
-            transform: translateX(5px);
+            transform: translateX(5px) translateZ(0);
+            /* Keep translateZ on hover */
         }
 
         .favorite-link:hover .text-gray-200 {
@@ -188,7 +204,8 @@
 
         /* Only apply hover animation to INACTIVE links */
         aside nav a:not(.active-link):hover {
-            transform: translateX(5px) scale(1.02);
+            transform: translateX(5px) scale(1.02) translateZ(0);
+            /* Keep translateZ on hover */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             background-color: #1f2937;
             /* hover:bg-gray-800 */
@@ -208,12 +225,16 @@
         }
 
         #course-modal .modal-content {
-            transition: transform 0.3s ease;
-            transform: scale(0.95);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: scale(0.95) translateZ(0);
+            /* Keep translateZ */
+            opacity: 0;
         }
 
         #course-modal:not(.hidden) .modal-content {
-            transform: scale(1);
+            transform: scale(1) translateZ(0);
+            /* Keep translateZ */
+            opacity: 1;
         }
 
         .modal-course-part-link {
@@ -232,10 +253,9 @@
         .modal-course-part-link:hover {
             background-color: #4f46e5;
             color: #f9fafb;
-            transform: translateY(-3px);
-            /* Gentle lift animation */
+            transform: translateY(-3px) translateZ(0);
+            /* Keep translateZ on hover */
             box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
-            /* Soft glow effect */
         }
 
         /* Search Section Styles */
@@ -275,8 +295,52 @@
         /* Style for the keyboard-selected search result */
         .search-result-selected {
             background-color: #4f46e5 !important;
-            transform: translateY(-3px);
+            transform: translateY(-3px) translateZ(0);
+            /* Keep translateZ */
             box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) translateZ(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        main>section {
+            transition: opacity 0.3s ease;
+        }
+
+        .section-entering {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .section-exiting {
+            animation: fadeOut 0.2s ease forwards;
+        }
+
+        .animate-item {
+            opacity: 0;
+        }
+
+        .animate-item.is-visible {
+            animation: fadeInUp 0.4s ease forwards;
         }
     </style>
 </head>
@@ -380,7 +444,7 @@
                             </button>
                         </div>
                         <div id="search-results" class="mt-4 w-full space-y-2">
-                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -388,7 +452,7 @@
             <section id="content-mosh-courses" class="hidden">
                 <div class="p-2 md:p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch">
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -417,7 +481,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -443,7 +507,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -461,7 +525,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-yellow-500" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24" fill="currentColor">
@@ -479,7 +543,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-blue-600" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 128 128" fill="none">
@@ -489,7 +553,8 @@
                                     fill="#fff" />
                             </svg>
                             <h3 class="item-title">The Ultimate TypeScript Course</h3>
-                            <p class="item-description">Learn TypeScript from the ground up to write robust and scalable
+                            <p class="item-description">Learn TypeScript from the ground up to write robust and
+                                scalable
                                 applications.</p>
                         </div>
                         <div class="item-footer">
@@ -499,7 +564,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-yellow-400" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 630 630" fill="currentColor">
@@ -524,7 +589,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-cyan-400" viewBox="0 0 128 128" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -546,7 +611,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-cyan-500" viewBox="0 0 128 128" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -568,7 +633,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -594,7 +659,7 @@
                         </div>
                     </div>
 
-                    <div class="item-card">
+                    <div class="item-card animate-item">
                         <div class="item-header">
                             <svg class="item-icon text-red-600" fill="currentColor" viewBox="0 0 128 128"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -628,8 +693,8 @@
                         <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
                             <h3 class="text-xl font-semibold text-white mb-4 border-b border-gray-600 pb-2">AI</h3>
                             <div class="space-y-2">
-                                <a href="https://gemini.google.com/u/2/app" class="tool-link-v2" target="_blank"
-                                    data-search-term="Gemini">
+                                <a href="https://gemini.google.com/u/2/app" class="tool-link-v2 animate-item"
+                                    target="_blank" data-search-term="Gemini">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-purple-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -641,8 +706,8 @@
                                         <div class="tool-title">Gemini</div>
                                     </div>
                                 </a>
-                                <a href="https://notebooklm.google.com/?authuser=2" class="tool-link-v2" target="_blank"
-                                    data-search-term="NotebookLM">
+                                <a href="https://notebooklm.google.com/?authuser=2" class="tool-link-v2 animate-item"
+                                    target="_blank" data-search-term="NotebookLM">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-blue-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -654,7 +719,7 @@
                                         <div class="tool-title">NotebookLM</div>
                                     </div>
                                 </a>
-                                <a href="https://aistudio.google.com/" class="tool-link-v2" target="_blank"
+                                <a href="https://aistudio.google.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="Google AI Studio">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-green-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
@@ -667,7 +732,7 @@
                                         <div class="tool-title">Google AI Studio</div>
                                     </div>
                                 </a>
-                                <a href="https://chatgpt.com/" class="tool-link-v2" target="_blank"
+                                <a href="https://chatgpt.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="ChatGPT">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-teal-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
@@ -680,7 +745,7 @@
                                         <div class="tool-title">ChatGPT</div>
                                     </div>
                                 </a>
-                                <a href="https://chat.deepseek.com/" class="tool-link-v2" target="_blank"
+                                <a href="https://chat.deepseek.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="DeepSeek">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-indigo-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
@@ -698,7 +763,7 @@
                             <h3 class="text-xl font-semibold text-white mb-4 border-b border-gray-600 pb-2">
                                 Communication</h3>
                             <div class="space-y-2">
-                                <a href="https://web.whatsapp.com/" class="tool-link-v2" target="_blank"
+                                <a href="https://web.whatsapp.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="WhatsApp">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-green-400" fill="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -710,8 +775,9 @@
                                         <div class="tool-title">WhatsApp</div>
                                     </div>
                                 </a>
-                                <a href="https://translate.google.com/?sl=id&tl=en&op=translate" class="tool-link-v2"
-                                    target="_blank" data-search-term="Google Translate">
+                                <a href="https://translate.google.com/?sl=id&tl=en&op=translate"
+                                    class="tool-link-v2 animate-item" target="_blank"
+                                    data-search-term="Google Translate">
                                     <div class="flex-shrink-0">
                                         <svg class="tool-icon text-blue-400" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24" fill="currentColor">
@@ -728,10 +794,11 @@
                     </div>
                     <div class="space-y-8">
                         <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
-                            <h3 class="text-xl font-semibold text-white mb-4 border-b border-gray-600 pb-2">Productivity
+                            <h3 class="text-xl font-semibold text-white mb-4 border-b border-gray-600 pb-2">
+                                Productivity
                             </h3>
                             <div class="space-y-2">
-                                <a href="https://docs.google.com/" class="tool-link-v2" target="_blank"
+                                <a href="https://docs.google.com/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="Google Docs">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-blue-500" fill="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -743,8 +810,8 @@
                                         <div class="tool-title">Google Docs</div>
                                     </div>
                                 </a>
-                                <a href="https://docs.google.com/presentation/u/2/" class="tool-link-v2" target="_blank"
-                                    data-search-term="Google Slides">
+                                <a href="https://docs.google.com/presentation/u/2/" class="tool-link-v2 animate-item"
+                                    target="_blank" data-search-term="Google Slides">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-yellow-400"
                                             fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -755,8 +822,8 @@
                                         <div class="tool-title">Google Slides</div>
                                     </div>
                                 </a>
-                                <a href="https://vscode.dev/?vscode-lang=id-id" class="tool-link-v2" target="_blank"
-                                    data-search-term="Visual Studio Code">
+                                <a href="https://vscode.dev/?vscode-lang=id-id" class="tool-link-v2 animate-item"
+                                    target="_blank" data-search-term="Visual Studio Code">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-blue-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -768,8 +835,8 @@
                                         <div class="tool-title">Visual Studio Code</div>
                                     </div>
                                 </a>
-                                <a href="https://syuhadaramadhan.github.io/youtube-link-generator/"
-                                    class="tool-link-v2" target="_blank" data-search-term="Link Generator">
+                                <a href="file:///media/fuse/drivefs-f0ec0cb6d418fcf04af63d4ab3e3a387/root/Application/youtubeLinkGenerator.html"
+                                    class="tool-link-v2 animate-item" target="_blank" data-search-term="Link Generator">
                                     <div class="flex-shrink-0">
                                         <svg class="tool-icon text-green-400" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -787,7 +854,7 @@
                         <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
                             <h3 class="text-xl font-semibold text-white mb-4 border-b border-gray-600 pb-2">Focus</h3>
                             <div class="space-y-2">
-                                <a href="https://pomofocus.io/" class="tool-link-v2" target="_blank"
+                                <a href="https://pomofocus.io/" class="tool-link-v2 animate-item" target="_blank"
                                     data-search-term="Pomofocus">
                                     <div class="flex-shrink-0"><svg class="tool-icon text-red-400" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
@@ -797,6 +864,19 @@
                                         </svg></div>
                                     <div>
                                         <div class="tool-title">Pomofocus</div>
+                                    </div>
+                                </a>
+                                <a href="https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ"
+                                    class="tool-link-v2 animate-item" target="_blank" data-search-term="Deep Focus">
+                                    <div class="flex-shrink-0"><svg class="tool-icon text-green-400" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z">
+                                            </path>
+                                        </svg></div>
+                                    <div>
+                                        <div class="tool-title">Deep Focus</div>
                                     </div>
                                 </a>
                             </div>
@@ -810,7 +890,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                         <div class="flex flex-col space-y-1">
                             <a href="https://www.youtube.com/watch?v=v_tiZsWgecU&list=PL_V_aPfafryfUGgrrLf7cEGMTQTkQ624l"
-                                target="_blank" class="favorite-link" data-search-term="AI for Students">
+                                target="_blank" class="favorite-link animate-item" data-search-term="AI for Students">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -821,7 +901,7 @@
                                 <span class="text-gray-200 text-lg">AI for Students</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=zYKJdzyAviE&list=PL_V_aPfafryfjKo06m6lFbD_Bd3z5_D5L"
-                                target="_blank" class="favorite-link" data-search-term="Ali Abdaal">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Ali Abdaal">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -832,7 +912,7 @@
                                 <span class="text-gray-200 text-lg">Ali Abdaal</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=qABysGcJ72I&list=PL_V_aPfafryf5xaXHoA5dLP1Fya4Ab5wL"
-                                target="_blank" class="favorite-link" data-search-term="Andy Tries Coding">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Andy Tries Coding">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -843,7 +923,7 @@
                                 <span class="text-gray-200 text-lg">Andy Tries Coding</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=g1rj4jiXCn4&list=PL_V_aPfafrydaDyAMSZQq3r5yJTBloQrB"
-                                target="_blank" class="favorite-link" data-search-term="Arif Rapiadi">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Arif Rapiadi">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -854,7 +934,7 @@
                                 <span class="text-gray-200 text-lg">Arif Rapiadi</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=C5TyU4HJI7Q&list=PL_V_aPfafryczJnYzcjDn57ECvl9Z7P-G&index=1"
-                                target="_blank" class="favorite-link" data-search-term="BigboxSWE">
+                                target="_blank" class="favorite-link animate-item" data-search-term="BigboxSWE">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -865,7 +945,7 @@
                                 <span class="text-gray-200 text-lg">BigboxSWE</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=5a4y3fSbXrE&list=PL_V_aPfafryfFpK1TInbsYlIywXg4-0AJ&index=1&t=909s"
-                                target="_blank" class="favorite-link" data-search-term="Brian Ruiz">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Brian Ruiz">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -876,7 +956,7 @@
                                 <span class="text-gray-200 text-lg">Brian Ruiz</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=Qo725hdnS1Q&list=PL_V_aPfafryeRmnWJjSmQeWWPNAmWJ01e"
-                                target="_blank" class="favorite-link" data-search-term="Carmudi Indonesia">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Carmudi Indonesia">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -887,7 +967,7 @@
                                 <span class="text-gray-200 text-lg">Carmudi Indonesia</span>
                             </a>
                             <a href="https://www.youtube.com/playlist?list=PL4cUxeGkcC9joeiiVaLExvfSgmdtBbSPM"
-                                target="_blank" class="favorite-link"
+                                target="_blank" class="favorite-link animate-item"
                                 data-search-term="Coding with AI (Copilot) Tutorial">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
@@ -899,7 +979,7 @@
                                 <span class="text-gray-200 text-lg">Coding with AI (Copilot) Tutorial</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=FmHOLnWbl2E&list=PL_V_aPfafryd0Tm3WA8S5Acd7WtcdxrBF&index=1&t=109s"
-                                target="_blank" class="favorite-link" data-search-term="Daniel Laera">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Daniel Laera">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -909,8 +989,20 @@
                                 </div>
                                 <span class="text-gray-200 text-lg">Daniel Laera</span>
                             </a>
+                            <a href="https://www.youtube.com/watch?v=WvGHbDpv24k&list=PL_V_aPfafryegrveIIiZ7p9D7QX6_sMiT"
+                                target="_blank" class="favorite-link animate-item" data-search-term="Dan Martell">
+                                <div
+                                    class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                        fill="white">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                                <span class="text-gray-200 text-lg">Dan Martell</span>
+                            </a>
                             <a href="https://www.youtube.com/watch?v=WYxZiyBGlQs&list=PL_V_aPfafryczXGKaNLMXRL-48B7PlB9K&index=1"
-                                target="_blank" class="favorite-link" data-search-term="English Speaking Success">
+                                target="_blank" class="favorite-link animate-item"
+                                data-search-term="English Speaking Success">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -920,8 +1012,10 @@
                                 </div>
                                 <span class="text-gray-200 text-lg">English Speaking Success</span>
                             </a>
+                        </div>
+                        <div class="flex flex-col space-y-1">
                             <a href="https://www.youtube.com/watch?v=WeqJNoC4eLg&list=PL_V_aPfafryfkllkfEfZznb6vMRTQv0qJ&index=1"
-                                target="_blank" class="favorite-link" data-search-term="Jacob">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Jacob">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -931,10 +1025,8 @@
                                 </div>
                                 <span class="text-gray-200 text-lg">Jacob</span>
                             </a>
-                        </div>
-                        <div class="flex flex-col space-y-1">
                             <a href="https://www.youtube.com/watch?v=QiD2lZUjKOY&list=PL_V_aPfafrydAuZLjT1k4tGnWvQNBd8FE"
-                                target="_blank" class="favorite-link" data-search-term="Kristian Hansen">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Kristian Hansen">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -945,7 +1037,7 @@
                                 <span class="text-gray-200 text-lg">Kristian Hansen</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=8Cg3p9K0il4&list=PL_V_aPfafryfqUc3kQw4szN1O01d_B_GS&index=1&t=148s"
-                                target="_blank" class="favorite-link" data-search-term="Liziqi">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Liziqi">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -956,7 +1048,7 @@
                                 <span class="text-gray-200 text-lg">Liziqi</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=a-fmRIW8u-8&list=PLTZYG7bZ1u6pjtxBt4IQxPTYVH7J2dwOo"
-                                target="_blank" class="favorite-link"
+                                target="_blank" class="favorite-link animate-item"
                                 data-search-term="Make AI Work for You | Google">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
@@ -968,7 +1060,7 @@
                                 <span class="text-gray-200 text-lg">Make AI Work for You | Google</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=JxoTdrqy2Nw&list=PL_V_aPfafrycZHWU52jPR_FqaxCtLmHWg&index=1"
-                                target="_blank" class="favorite-link" data-search-term="Marko">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Marko">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -978,8 +1070,8 @@
                                 </div>
                                 <span class="text-gray-200 text-lg">Marko</span>
                             </a>
-                            <a href="https://www.youtube.com/watch?v=yY6iisoB2hs&list=PL_V_aPfafrydAlCgREuqePOZa3ZMMJxyr&index=2&t=130s"
-                                target="_blank" class="favorite-link" data-search-term="Oliur Online">
+                            <a href="https://www.youtube.com/watch?v=yY6iisoB2hs&list=PL_V_aPfafrydAlCgREuqePOZaZMMJxyr&index=2&t=130s"
+                                target="_blank" class="favorite-link animate-item" data-search-term="Oliur Online">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -990,7 +1082,7 @@
                                 <span class="text-gray-200 text-lg">Oliur Online</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=uQOLogU9W24&list=PL_V_aPfafrycDKd6mZ0koufdI-xYIygRX"
-                                target="_blank" class="favorite-link" data-search-term="Savy Wheels">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Savy Wheels">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -1001,7 +1093,7 @@
                                 <span class="text-gray-200 text-lg">Savy Wheels</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=x9TUDb4sLE0&list=PL_V_aPfafryekqRin2NEUH355LAolkZKS&index=1"
-                                target="_blank" class="favorite-link" data-search-term="Starter Story">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Starter Story">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -1012,7 +1104,7 @@
                                 <span class="text-gray-200 text-lg">Starter Story</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=GhVis_MWRcs&list=PL_V_aPfafrydYLpgWDaFKDHGl7OW6juF_&index=1"
-                                target="_blank" class="favorite-link" data-search-term="Takechu">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Takechu">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -1023,7 +1115,7 @@
                                 <span class="text-gray-200 text-lg">Takechu</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=rss7ydVq1Fg&list=PL_V_aPfafryd1P_HrJr1h5_Y4qhh-j2lm"
-                                target="_blank" class="favorite-link" data-search-term="Timothy Ronald">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Timothy Ronald">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -1034,7 +1126,7 @@
                                 <span class="text-gray-200 text-lg">Timothy Ronald</span>
                             </a>
                             <a href="https://www.youtube.com/watch?v=UVTg2AP5_ZQ&list=PL_V_aPfafryfv7jwSPZtOrQ9ifyfMImek"
-                                target="_blank" class="favorite-link" data-search-term="Traversy Media">
+                                target="_blank" class="favorite-link animate-item" data-search-term="Traversy Media">
                                 <div
                                     class="favorite-link-icon flex items-center justify-center bg-red-600 rounded-full w-6 h-6 mr-4 flex-shrink-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
@@ -1065,7 +1157,7 @@
                 </button>
             </div>
             <div id="modal-body" class="space-y-3">
-                </div>
+            </div>
         </div>
     </div>
 
@@ -1074,35 +1166,78 @@
         let allLinks = [];
         let selectedResultIndex = -1;
 
+        // --- REVISED: Animation Logic ---
+        function animateSection(targetContent) {
+            // Remove the 'hidden' class to make the section take up space
+            targetContent.classList.remove('hidden');
+            targetContent.classList.add('section-entering');
+
+            // Find all animatable items within the new section
+            const itemsToAnimate = targetContent.querySelectorAll('.animate-item');
+
+            // Animate them with a stagger effect
+            itemsToAnimate.forEach((item, index) => {
+                // Use a timeout to apply the animation class
+                setTimeout(() => {
+                    item.style.animationDelay = `${index * 50}ms`; // Apply stagger delay
+                    item.classList.add('is-visible');
+                }, 50); // A small base delay ensures the animation triggers reliably
+            });
+
+            // Clean up the container's animation class
+            targetContent.addEventListener('animationend', () => {
+                targetContent.classList.remove('section-entering');
+            }, { once: true });
+        }
+
+        // --- REVISED: Navigation Logic ---
         function setupSidebarNavigation() {
             const sidebarLinks = document.querySelectorAll('aside nav a');
+            let currentContent = null;
+
             sidebarLinks.forEach(link => {
                 link.classList.add('flex', 'items-center', 'p-3', 'rounded-lg');
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
+
                     const contentId = link.id.replace('sidebar-', 'content-');
-                    const allContent = document.querySelectorAll('main > section');
-                    allContent.forEach(section => section.classList.add('hidden'));
                     const targetContent = document.getElementById(contentId);
-                    if (targetContent) {
-                        targetContent.classList.remove('hidden');
+
+                    if (targetContent === currentContent) return;
+
+                    // Hide the current section if there is one
+                    if (currentContent) {
+                        // Reset animations on items of the outgoing section
+                        currentContent.querySelectorAll('.animate-item').forEach(item => {
+                            item.classList.remove('is-visible');
+                        });
+                        currentContent.classList.add('hidden');
                     }
+
+                    // Animate the new section
+                    animateSection(targetContent);
+
+                    currentContent = targetContent;
+
                     if (contentId === 'content-search') {
                         document.getElementById('search-box').focus();
                     }
+
                     sidebarLinks.forEach(l => l.classList.remove('active-link'));
                     link.classList.add('active-link');
+
                     const sidebar = document.getElementById('sidebar');
                     if (window.innerWidth < 768) {
                         sidebar.classList.add('-translate-x-full');
                     }
                 });
             });
-            // Changed this line to open 'Tools' section by default
+
+            // Trigger a click on the default link to show it on page load
             document.getElementById('sidebar-tools').click();
         }
 
-        // --- Modal Logic ---
+        // --- Modal Logic (Unchanged) ---
         const modal = document.getElementById('course-modal');
         const modalTitle = document.getElementById('modal-title');
         const modalBody = document.getElementById('modal-body');
@@ -1135,9 +1270,9 @@
             modal.classList.add('hidden');
         }
 
-        // --- Search Logic ---
+        // --- Search Logic (Unchanged) ---
         function buildLinkIndex() {
-            allLinks = []; // Clear the index before rebuilding
+            allLinks = [];
             const searchableLinks = document.querySelectorAll('a[data-search-term]');
 
             searchableLinks.forEach(link => {
@@ -1145,10 +1280,8 @@
                 const href = link.href;
                 let iconHTML = '';
 
-                // First, check if the icon is directly inside the link (for Tools and Favorites)
                 let iconSource = link.querySelector('.tool-icon, .favorite-link-icon');
 
-                // If not found, it must be a course, so find the parent card and get its icon
                 if (!iconSource) {
                     const itemCard = link.closest('.item-card');
                     if (itemCard) {
@@ -1171,7 +1304,7 @@
             const searchTerm = document.getElementById('search-box').value.toLowerCase();
             const resultsContainer = document.getElementById('search-results');
             resultsContainer.innerHTML = '';
-            selectedResultIndex = -1; // Reset selection on new search
+            selectedResultIndex = -1;
             toggleClearButton();
 
             if (searchTerm.length === 0) {
@@ -1262,7 +1395,7 @@
         }
 
 
-        // --- Initial Page Load and Event Listeners ---
+        // --- Initial Page Load and Event Listeners (Unchanged) ---
         document.addEventListener('DOMContentLoaded', () => {
             buildLinkIndex();
             setupSidebarNavigation();
@@ -1284,7 +1417,7 @@
             // Modal close events
             modalCloseBtn.addEventListener('click', closeCourseModal);
             modal.addEventListener('click', (event) => {
-                if (event.target === modal) { // Only close if backdrop is clicked
+                if (event.target === modal) {
                     closeCourseModal();
                 }
             });
@@ -1297,7 +1430,6 @@
                     document.getElementById('sidebar-search').click();
                 }
             });
-
         });
     </script>
 </body>
