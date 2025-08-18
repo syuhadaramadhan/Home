@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Harian Produktif</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+
+    <style>
+        /* --- Import Font --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        /* --- Dark Mode Theme --- */
+        :root {
+            --bg-color: #1a1a1a;
+            --container-color: #2c2c2c;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --primary-color: #5dade2;
+            --active-color: #2ecc71;
+            /* Warna hijau untuk tugas aktif */
+            --border-color: #444444;
+            --table-header-bg: #34495e;
+            --table-row-alt-bg: #333333;
+            --table-row-hover-bg: #4a4a4a;
+            --duration-text-color: #a9cce3;
+        }
+
+        /* Menambahkan smooth scroll untuk keseluruhan halaman */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: var(--container-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--heading-color);
+            font-size: 2.2em;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            font-weight: 400;
+            color: #b0b0b0;
+            margin-top: 0;
+            letter-spacing: 0.5px;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--heading-color);
+            font-weight: bold;
+        }
+
+        tr {
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-row-alt-bg);
+        }
+
+        tr:hover {
+            background-color: var(--table-row-hover-bg);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .active-task {
+            background-color: var(--active-color) !important;
+            box-shadow: 0 0 25px rgba(46, 204, 113, 0.5);
+            transform: scale(1.02);
+        }
+
+        .active-task td,
+        .active-task .time,
+        .active-task .duration,
+        .active-task .note {
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        .time {
+            font-weight: 700;
+            color: var(--primary-color);
+            width: 120px;
+        }
+
+        .duration {
+            font-weight: 700;
+            color: var(--duration-text-color);
+            width: 90px;
+        }
+
+        .note {
+            font-style: italic;
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-style: italic;
+            color: #a0a0a0;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- KODE CSS RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header .subtitle {
+                font-size: 1em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                margin-bottom: 15px;
+            }
+
+            tr:nth-child(even) {
+                background-color: var(--container-color);
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #4d4d4d;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+
+            td:before {
+                position: absolute;
+                top: 50%;
+                left: 15px;
+                transform: translateY(-50%);
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: var(--primary-color);
+                content: attr(data-label);
+            }
+
+            .active-task td:before {
+                color: #ffffff !important;
+            }
+
+            td:last-child {
+                border-bottom: 0;
+            }
+
+            .time,
+            .duration {
+                width: auto;
+            }
+
+            .active-task {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Jadwal Harian Produktif</h1>
+            <p class="subtitle">Fokus Utama: Disiplin, Konsistensi, dan Istirahat Berkualitas.</p>
+        </div>
+
+        <h2>☀️ Sesi Pagi & Kerja</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Durasi</th>
+                    <th>Kegiatan</th>
+                    <th>Fokus / Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-start="04:00" data-end="12:00">
+                    <td data-label="Waktu" class="time">04:00 - 12:00</td>
+                    <td data-label="Durasi" class="duration">8 jam</td>
+                    <td data-label="Kegiatan">💼 Bekerja</td>
+                    <td data-label="Catatan" class="note">Fokus penuh pada tugas kantor.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🏡 Sesi Transisi & Persiapan</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Durasi</th>
+                    <th>Kegiatan</th>
+                    <th>Fokus / Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-start="12:00" data-end="13:00">
+                    <td data-label="Waktu" class="time">12:00 - 13:00</td>
+                    <td data-label="Durasi" class="duration">1 jam</td>
+                    <td data-label="Kegiatan">🚿 Pulang, Mandi & Shalat Dzuhur</td>
+                    <td data-label="Catatan" class="note">Bersihkan diri, segarkan pikiran.</td>
+                </tr>
+                <tr data-start="13:00" data-end="13:30">
+                    <td data-label="Waktu" class="time">13:00 - 13:30</td>
+                    <td data-label="Durasi" class="duration">30 menit</td>
+                    <td data-label="Kegiatan">🧹 Membersihkan Kamar</td>
+                    <td data-label="Catatan" class="note">Lingkungan rapi = Pikiran rapi.</td>
+                </tr>
+                <tr data-start="13:30" data-end="13:50">
+                    <td data-label="Waktu" class="time">13:30 - 13:50</td>
+                    <td data-label="Durasi" class="duration">20 menit</td>
+                    <td data-label="Kegiatan">📚 Persiapan Belajar</td>
+                    <td data-label="Catatan" class="note">Siapkan semua materi, air minum.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>💡 Sesi Belajar & Konten</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Durasi</th>
+                    <th>Kegiatan</th>
+                    <th>Fokus / Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-start="13:50" data-end="14:30">
+                    <td data-label="Waktu" class="time">13:50 - 14:30</td>
+                    <td data-label="Durasi" class="duration">40 menit</td>
+                    <td data-label="Kegiatan">🧠 Belajar Fokus: DSA</td>
+                    <td data-label="Catatan" class="note">Deep Work. Jangan ada distraksi.</td>
+                </tr>
+                <tr data-start="14:30" data-end="14:40">
+                    <td data-label="Waktu" class="time">14:30 - 14:40</td>
+                    <td data-label="Durasi" class="duration">10 menit</td>
+                    <td data-label="Kegiatan">🧘‍♂️ Istirahat Singkat</td>
+                    <td data-label="Catatan" class="note">Jalan kaki, minum, peregangan.</td>
+                </tr>
+                <tr data-start="14:40" data-end="15:20">
+                    <td data-label="Waktu" class="time">14:40 - 15:20</td>
+                    <td data-label="Durasi" class="duration">40 menit</td>
+                    <td data-label="Kegiatan">💻 Konten DSA (Bagian 1)</td>
+                    <td data-label="Catatan" class="note">Tulis skrip / rekam video.</td>
+                </tr>
+                <tr data-start="15:20" data-end="15:30">
+                    <td data-label="Waktu" class="time">15:20 - 15:30</td>
+                    <td data-label="Durasi" class="duration">10 menit</td>
+                    <td data-label="Kegiatan">🧘‍♂️ Istirahat Singkat</td>
+                    <td data-label="Catatan" class="note">Lihat ke luar jendela.</td>
+                </tr>
+                <tr data-start="15:30" data-end="16:10">
+                    <td data-label="Waktu" class="time">15:30 - 16:10</td>
+                    <td data-label="Durasi" class="duration">40 menit</td>
+                    <td data-label="Kegiatan">💻 Konten DSA (Bagian 2)</td>
+                    <td data-label="Catatan" class="note">Lanjutkan progres.</td>
+                </tr>
+                <tr data-start="16:10" data-end="16:30">
+                    <td data-label="Waktu" class="time">16:10 - 16:30</td>
+                    <td data-label="Durasi" class="duration">20 menit</td>
+                    <td data-label="Kegiatan">🕌 Istirahat & Shalat Ashar</td>
+                    <td data-label="Catatan" class="note">Recharge spiritual.</td>
+                </tr>
+                <tr data-start="16:30" data-end="17:10">
+                    <td data-label="Waktu" class="time">16:30 - 17:10</td>
+                    <td data-label="Durasi" class="duration">40 menit</td>
+                    <td data-label="Kegiatan">📖 Mengikuti Kajian RD</td>
+                    <td data-label="Catatan" class="note">Serap ilmu dengan tenang.</td>
+                </tr>
+                <tr data-start="17:10" data-end="17:20">
+                    <td data-label="Waktu" class="time">17:10 - 17:20</td>
+                    <td data-label="Durasi" class="duration">10 menit</td>
+                    <td data-label="Kegiatan">🧘‍♂️ Istirahat Singkat</td>
+                    <td data-label="Catatan" class="note">Kosongkan pikiran.</td>
+                </tr>
+                <tr data-start="17:20" data-end="18:00">
+                    <td data-label="Waktu" class="time">17:20 - 18:00</td>
+                    <td data-label="Durasi" class="duration">40 menit</td>
+                    <td data-label="Kegiatan">🇬🇧 Konten Bahasa Inggris</td>
+                    <td data-label="Catatan" class="note">Latihan atau buat materi baru.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🌙 Sesi Penutupan & Istirahat</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Durasi</th>
+                    <th>Kegiatan</th>
+                    <th>Fokus / Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-start="18:00" data-end="18:20">
+                    <td data-label="Waktu" class="time">18:00 - 18:20</td>
+                    <td data-label="Durasi" class="duration">20 menit</td>
+                    <td data-label="Kegiatan">🕌 Istirahat & Shalat Maghrib</td>
+                    <td data-label="Catatan" class="note">Bersyukur atas hari ini.</td>
+                </tr>
+                <tr data-start="18:20" data-end="19:00">
+                    <td data-label="Waktu" class="time">18:20 - 19:00</td>
+                    <td data-label="Durasi" class="duration">40 menit</td>
+                    <td data-label="Kegiatan">🎯 Project Focus and Goal</td>
+                    <td data-label="Catatan" class="note">Kerjakan 1 tugas penting.</td>
+                </tr>
+                <tr data-start="19:00" data-end="19:45">
+                    <td data-label="Waktu" class="time">19:00 ~</td>
+                    <td data-label="Durasi" class="duration">Fleksibel</td>
+                    <td data-label="Kegiatan">✅ Keluarga, Isya & Santai</td>
+                    <td data-label="Catatan" class="note">Waktu bebas dan berkualitas.</td>
+                </tr>
+                <tr data-start="19:45" data-end="20:00">
+                    <td data-label="Waktu" class="time">19:45 - 20:00</td>
+                    <td data-label="Durasi" class="duration">15 menit</td>
+                    <td data-label="Kegiatan">🛌 Bersiap Tidur</td>
+                    <td data-label="Catatan" class="note">Matikan gawai, baca buku ringan.</td>
+                </tr>
+                <tr data-start="20:00" data-end="04:00">
+                    <td data-label="Waktu" class="time">20:00 - 04:00</td>
+                    <td data-label="Durasi" class="duration">8 jam</td>
+                    <td data-label="Kegiatan">😴 Tidur Berkualitas</td>
+                    <td data-label="Catatan" class="note">Waktu pemulihan total.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer>“Barang siapa yang tidak mampu menahan lelahnya belajar, <br>maka ia harus mampu menahan perihnya
+            kebodohan”
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const scheduleRows = document.querySelectorAll('tr[data-start]');
+            const now = new Date();
+            const currentTime = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
+            scheduleRows.forEach(row => {
+                const startTime = row.dataset.start;
+                const endTime = row.dataset.end;
+                let isActive = false;
+
+                if (startTime > endTime) {
+                    if (currentTime >= startTime || currentTime < endTime) {
+                        isActive = true;
+                    }
+                } else {
+                    if (currentTime >= startTime && currentTime < endTime) {
+                        isActive = true;
+                    }
+                }
+
+                if (isActive) {
+                    // Tambahkan kelas untuk sorotan
+                    row.classList.add('active-task');
+
+                    // --- INI PERINTAH BARUNYA ---
+                    // Scroll ke elemen yang aktif secara perlahan
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
