@@ -153,26 +153,26 @@
                         <div class="setting-row">
                             <label for="focus-sound">Focus End</label>
                             <select id="focus-sound">
-                                <option value="/sounds/beep.mp3">Simple Beep</option>
-                                <option value="/sounds/bell.mp3">Bell</option>
-                                <option value="/sounds/chime.mp3">Chime</option>
-                                <option value="/sounds/success.mp3">Success</option>
+                                <option value="sounds/beep.mp3">Simple Beep</option>
+                                <option value="sounds/bell.mp3">Bell</option>
+                                <option value="sounds/chime.mp3">Chime</option>
+                                <option value="sounds/success.mp3">Success</option>
                             </select>
                         </div>
                         <div class="setting-row">
                             <label for="short-break-sound">Short Break End</label>
                             <select id="short-break-sound">
-                                <option value="/sounds/bell.mp3">Default Alert</option>
-                                <option value="/sounds/chime.mp3">Chime</option>
-                                <option value="/sounds/beep.mp3">Simple Beep</option>
+                                <option value="sounds/bell.mp3">Default Alert</option>
+                                <option value="sounds/chime.mp3">Chime</option>
+                                <option value="sounds/beep.mp3">Simple Beep</option>
                             </select>
                         </div>
                         <div class="setting-row">
                             <label for="long-break-sound">Long Break End</label>
                             <select id="long-break-sound">
-                                <option value="/sounds/success.mp3">Uplifting</option>
-                                <option value="/sounds/bell.mp3">Bell</option>
-                                <option value="/sounds/chime.mp3">Chime</option>
+                                <option value="sounds/success.mp3">Uplifting</option>
+                                <option value="sounds/bell.mp3">Bell</option>
+                                <option value="sounds/chime.mp3">Chime</option>
                             </select>
                         </div>
                     </div>
@@ -241,9 +241,9 @@
             let sessionsBeforeLongBreak = parseInt(localStorage.getItem('sessionsBeforeLongBreak')) || 4;
             let autoStartSessions = localStorage.getItem('autoStartSessions') !== 'false';
             
-            let focusSoundUrl = localStorage.getItem('focusSoundUrl') || '/sounds/beep.mp3';
-            let shortBreakSoundUrl = localStorage.getItem('shortBreakSoundUrl') || '/sounds/bell.mp3';
-            let longBreakSoundUrl = localStorage.getItem('longBreakSoundUrl') || '/sounds/success.mp3';
+            let focusSoundUrl = localStorage.getItem('focusSoundUrl') || 'sounds/beep.mp3';
+            let shortBreakSoundUrl = localStorage.getItem('shortBreakSoundUrl') || 'sounds/bell.mp3';
+            let longBreakSoundUrl = localStorage.getItem('longBreakSoundUrl') || 'sounds/success.mp3';
 
             let currentMode = 'focus';
             let focusSessionsCompleted = parseInt(localStorage.getItem('focusSessionsCompleted')) || 0;
